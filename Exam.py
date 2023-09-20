@@ -15,9 +15,7 @@ class Exam:
         self.buttonExamen.pack() 
 
         
-        self.bottom.grid_columnconfigure(0,weight=1)
-        self.bottom.grid_columnconfigure(1,weight=1)
-
+        
 
 
 
