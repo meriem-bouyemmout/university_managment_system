@@ -60,12 +60,17 @@ class StudentWindow :
         self.Phone.place(x=120,y=220, width=200, height=40)
 
 
-        self.add=Button(self.Frameleft,text='Add', command=self.add, fg='#4F4F4F', font=('tahoma',10,'bold'))
-        self.add.place(x=40,y=300, width=60, height=60)
-        self.add=Button(self.Frameleft,text='Update', fg='#4F4F4F', font=('tahoma',10,'bold'))
-        self.add.place(x=170,y=300, width=60, height=60)
-        self.add=Button(self.Frameleft,text='Delete', fg='#4F4F4F', font=('tahoma',10,'bold'))
-        self.add.place(x=290,y=300, width=60, height=60)
+        self.buttonAdd=Button(self.Frameleft,text='Add', command=self.add, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonAdd.place(x=20,y=300, width=60, height=60)
+        self.buttonUp=Button(self.Frameleft,text='Update', command=self.update, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonUp.place(x=100,y=300, width=60, height=60)
+        self.buttonDel=Button(self.Frameleft,text='Delete', command=self.delete, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonDel.place(x=180,y=300, width=60, height=60)
+        self.buttonRead=Button(self.Frameleft,text='Show', command=self.read, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonRead.place(x=260,y=300, width=60, height=60)
+        self.buttonReset=Button(self.Frameleft,text='Reset', command=self.reset, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonReset.place(x=340,y=300, width=60, height=60)
+    
 
         ####################################### RIGHT ####################################################
         self.Frameright = Frame(self.master, width=800)
@@ -88,8 +93,15 @@ class StudentWindow :
         self.frameView = Frame(self.Frameright, bg = 'Blue')
         self.frameView.pack(fill=BOTH)
 
-        self.table = ttk.Treeview(self.frameView, column= ("ID","Firstname","Lastname","Matricule","Email","Phone"), show='headings')
+        self.scrollbar = Scrollbar(self.frameView, orient = VERTICAL)
+        
+
+        self.table = ttk.Treeview(self.frameView, column= ("ID","Firstname","Lastname","Matricule","Email","Phone"), show='headings', yscrollcommand=self.scrollbar.set)
+        self.scrollbar.pack(side=RIGHT, fill=Y)
+        self.scrollbar.config(command=self.table.yview())       
         self.table.pack(fill=BOTH)
+         
+
 
         self.table.heading("ID",text="ID")
         self.table.heading("Firstname",text="Firstname")
@@ -156,17 +168,74 @@ class StudentWindow :
         self.table.delete(*self.table.get_children())
 
         for i in result :
-          self.table.insert('','end',values=i)
+          self.table.insert('','end', iid=i[0], values=i)
           mydb.commit()
         mydb.close()  
                
 
       def show(self,ev): 
-        data = self.table.focus()
-        alldata = self.table.item(data)
+        self.data = self.table.focus()
+        alldata = self.table.item(self.data)
         val = alldata['values']
         self.first.set(val[1])
         self.last.set(val[2])
         self.matr.set(val[3])
         self.mail.set(val[4])
         self.ph.set(val[5])
+
+
+      def reset(self):
+        self.FirstName.delete(0,'end')
+        self.LastName.delete(0,'end')
+        self.Matricule.delete(0,'end')
+        self.Email.delete(0,'end')
+        self.Phone.delete(0,'end')   
+       
+      def delete(self):
+        mydb = mc.connect(
+          host = 'localhost',
+          user = 'root',
+          password = '',
+          database = 'university',
+          charset= 'utf8mb4'
+        )
+        mycursor = mydb.cursor()
+        req = ("delete from student where ID="+self.data)
+        mycursor.execute(req)
+        mydb.commit()
+        mydb.close()
+        mb.showinfo('Delete', 'The student was deleted')
+        self.read()
+        self.reset()
+
+      def update(self):
+        mydb = mc.connect(
+          host = 'localhost',
+          user = 'root',
+          password = '',
+          database = 'university',
+          charset= 'utf8mb4'
+        )
+        mycursor = mydb.cursor()
+
+        if (self.first.get() == '' or self.last.get() == '' or self.matr.get() == '' or self.mail.get() == '' or self.ph.get() == '') :
+          mb.showerror('Error','Complete all the blanks')
+          
+        else :
+            if ( not self.first.get().isalpha()  or not self.last.get().isalpha() or not self.matr.get().isdigit() or not self.mail.get().isalpha() or not self.ph.get().isdigit() ) :
+              mb.showerror('Error','Give us the true information')         
+         
+            else:
+
+              req = ("update student set Fistname=%s, Lastname=%s, Matricule=%s, Email=%s, Phone=%s where ID=%s ")
+              val = (self.first.get(), self.last.get(), self.matr.get(), self.mail.get(), self.ph.get(), self.data)
+              mycursor.execute(req, val)
+              mydb.commit()
+              mydb.close()
+              mb.showinfo('Update', 'The student was updated')
+              self.read()
+              self.reset() 
+           
+
+        
+          
