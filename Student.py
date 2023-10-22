@@ -80,7 +80,7 @@ class StudentWindow :
          
         self.studentsearch = Entry(self.Framerighttop, fg='#4F4F4F', font=('tahoma',12,'bold'), width=130)
         self.studentsearch.grid(row = 0, column = 0, sticky='nsew', pady=10, padx=10)
-        self.buttonsearch = Button(self.Framerighttop, text='Search', fg='#4F4F4F', font=('tahoma',12,'bold'), width=10)
+        self.buttonsearch = Button(self.Framerighttop, text='Search', command=self.search, fg='#4F4F4F', font=('tahoma',12,'bold'), width=10)
         self.buttonsearch.grid(row = 0, column = 1, sticky='nsew', pady=10, padx=10)
            
         self.Framerighttop.grid_columnconfigure(0, weight=1)
@@ -132,18 +132,18 @@ class StudentWindow :
         mycursor = mydb.cursor()
         req = " insert into student(Fistname, Lastname, Matricule, Email, Phone) values (%s, %s, %s, %s, %s) "
         if (self.FirstName.get() == '' or self.LastName.get() == '' or self.Matricule.get() == '' or self.Email.get() == '' or self.Phone.get() == '') :
-          mb.showerror('Error','Complete all the blanks')
+          mb.showerror('Error','Complete all the blanks', parent=self.master)
           
         else :
             if ( not self.FirstName.get().isalpha()  or not self.LastName.get().isalpha() or not self.Matricule.get().isdigit() or not self.Email.get().isalpha() or not self.Phone.get().isdigit() ) :
-              mb.showerror('Error','Give us the true information') 
+              mb.showerror('Error','Give us the true information', parent=self.master) 
 
             else :  
               val = (self.FirstName.get(), self.LastName.get(), self.Matricule.get(), self.Email.get(), self.Phone.get())          
               mycursor.execute(req, val)        
               mydb.commit()
               mydb.close() 
-              mb.showinfo('Successfuly added','Data inserted Successfuly')
+              mb.showinfo('Successfuly added','Data inserted Successfuly', parent=self.master)
               self.read()
 
               self.FirstName.delete(0,'end')
@@ -204,7 +204,7 @@ class StudentWindow :
         mycursor.execute(req)
         mydb.commit()
         mydb.close()
-        mb.showinfo('Delete', 'The student was deleted')
+        mb.showinfo('Delete', 'The student was deleted', parent=self.master)
         self.read()
         self.reset()
 
@@ -219,11 +219,11 @@ class StudentWindow :
         mycursor = mydb.cursor()
 
         if (self.first.get() == '' or self.last.get() == '' or self.matr.get() == '' or self.mail.get() == '' or self.ph.get() == '') :
-          mb.showerror('Error','Complete all the blanks')
+          mb.showerror('Error','Complete all the blanks', parent=self.master)
           
         else :
             if ( not self.first.get().isalpha()  or not self.last.get().isalpha() or not self.matr.get().isdigit() or not self.mail.get().isalpha() or not self.ph.get().isdigit() ) :
-              mb.showerror('Error','Give us the true information')         
+              mb.showerror('Error','Give us the true information', parent=self.master)         
          
             else:
 
@@ -232,10 +232,26 @@ class StudentWindow :
               mycursor.execute(req, val)
               mydb.commit()
               mydb.close()
-              mb.showinfo('Update', 'The student was updated')
+              mb.showinfo('Update', 'The student was updated', parent=self.master)
               self.read()
               self.reset() 
            
-
+      def search(self):
+        mydb = mc.connect(
+          host = 'localhost',
+          user = 'root',
+          password = '',
+          database = 'university',
+          charset= 'utf8mb4'
+        )
+        mycursor = mydb.cursor()
+        req = (" select * from student where ID="+self.studentsearch.get())
+        mycursor.execute(req)
+        result = mycursor.fetchone()
+        self.table.delete(*self.table.get_children())
+        
+        self.table.insert('','end', iid=result[0], values=result)
+        mydb.commit()
+        mydb.close() 
         
           
