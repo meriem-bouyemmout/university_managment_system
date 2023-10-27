@@ -28,59 +28,92 @@ class StudentWindow :
         self.height = self.master.winfo_screenheight()
         self.master.geometry("{w}x{h}+0+0".format(w=self.width,h=self.height))
         self.master.state("zoomed")
+        ############################## backgound#########################################
+       
+
         ################################# LEFT #######################################################
-        self.Frameleft = Frame(self.master, width=500)
+        self.Frameleft = Frame(self.master, width=500, bg='#CAE1FF')
         self.Frameleft.pack(side=LEFT, fill=Y)
         #############################################################################################
-        self.FirstName = Label(self.Frameleft,text='FirstName', fg='#4F4F4F', font=('tahoma',12,'bold'))
+        self.FirstName = Label(self.Frameleft,text='FirstName', fg='#4F4F4F', bg='#CAE1FF', font=('tahoma',12,'bold'))
         self.FirstName.place(x=10,y=20, width=100, height=40)
-        self.LastName = Label(self.Frameleft,text='LastName', fg='#4F4F4F', font=('tahoma',12,'bold'))
+        self.LastName = Label(self.Frameleft,text='LastName', fg='#4F4F4F', bg='#CAE1FF', font=('tahoma',12,'bold'))
         self.LastName.place(x=10,y=70, width=100, height=40)
-        self.Matricule = Label(self.Frameleft,text='Matricule', fg='#4F4F4F', font=('tahoma',12,'bold'))
+        self.Matricule = Label(self.Frameleft,text='Matricule', fg='#4F4F4F', bg='#CAE1FF', font=('tahoma',12,'bold'))
         self.Matricule.place(x=10,y=120, width=100, height=40)
-        self.Email = Label(self.Frameleft,text='Email', fg='#4F4F4F', font=('tahoma',12,'bold'))
+        self.Email = Label(self.Frameleft,text='Email', fg='#4F4F4F', bg='#CAE1FF', font=('tahoma',12,'bold'))
         self.Email.place(x=10,y=170, width=100, height=40)
-        self.Phone = Label(self.Frameleft,text='Phone', fg='#4F4F4F', font=('tahoma',12,'bold'))
+        self.Phone = Label(self.Frameleft,text='Phone', fg='#4F4F4F', bg='#CAE1FF', font=('tahoma',12,'bold'))
         self.Phone.place(x=10,y=220, width=100, height=40)
         self.first = StringVar()
         self.last = StringVar()
         self.matr = StringVar()
         self.mail = StringVar()
         self.ph = StringVar()
+##################################
 
-        self.FirstName = Entry(self.Frameleft,text='FirstName', fg='#4F4F4F', font=('tahoma',12,'bold'), textvariable = self.first)
+    
+
+
+    
+########################################################
+        self.FirstName = Entry(self.Frameleft,text='FirstName', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.first)
+        self.FirstName.config(justify="center")
         self.FirstName.place(x=120,y=20, width=200, height=40)
-        self.LastName = Entry(self.Frameleft,text='LastName', fg='#4F4F4F', font=('tahoma',12,'bold'), textvariable = self.last)
+        self.LastName = Entry(self.Frameleft,text='LastName', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.last)
+        self.LastName.config(justify="center")
         self.LastName.place(x=120,y=70, width=200, height=40)
-        self.Matricule = Entry(self.Frameleft,text='Matricule', fg='#4F4F4F', font=('tahoma',12,'bold'), textvariable = self.matr)
+        self.Matricule = Entry(self.Frameleft,text='Matricule', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.matr)
+        self.Matricule.config(justify="center")
         self.Matricule.place(x=120,y=120, width=200, height=40)
-        self.Email = Entry(self.Frameleft,text='Email', fg='#4F4F4F', font=('tahoma',12,'bold'), textvariable = self.mail)
+        self.Email = Entry(self.Frameleft,text='Email', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.mail)
+        self.Email.config(justify="center")
         self.Email.place(x=120,y=170, width=200, height=40)
-        self.Phone = Entry(self.Frameleft,text='Phone', fg='#4F4F4F', font=('tahoma',12,'bold'), textvariable = self.ph)
+        self.Phone = Entry(self.Frameleft,text='Phone', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.ph)
+        self.Phone.config(justify="center")
         self.Phone.place(x=120,y=220, width=200, height=40)
 
+###########################################################################
+        
+        def on_focus_in(event):
+         event.widget.config(fg='black', bg="#B0E2FF")
+        def on_focus_out(event):
+         event.widget.config(fg='#4F4F4F', bg="white") 
 
-        self.buttonAdd=Button(self.Frameleft,text='Add', command=self.add, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.FirstName.bind("<FocusIn>", on_focus_in)
+        self.FirstName.bind("<FocusOut>", on_focus_out)
+        self.LastName.bind("<FocusIn>", on_focus_in)
+        self.LastName.bind("<FocusOut>", on_focus_out)
+        self.Matricule.bind("<FocusIn>", on_focus_in)
+        self.Matricule.bind("<FocusOut>", on_focus_out)
+        self.Email.bind("<FocusIn>", on_focus_in)
+        self.Email.bind("<FocusOut>", on_focus_out)
+        self.Phone.bind("<FocusIn>", on_focus_in)
+        self.Phone.bind("<FocusOut>", on_focus_out)
+
+###############################################################################           
+
+        self.buttonAdd=Button(self.Frameleft,text='Add', command=self.add, bg='#6E7B8B', fg='white', font=('tahoma',10,'bold'))
         self.buttonAdd.place(x=20,y=300, width=60, height=60)
-        self.buttonUp=Button(self.Frameleft,text='Update', command=self.update, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonUp=Button(self.Frameleft,text='Update', command=self.update, bg='#6E7B8B', fg='white', font=('tahoma',10,'bold'))
         self.buttonUp.place(x=100,y=300, width=60, height=60)
-        self.buttonDel=Button(self.Frameleft,text='Delete', command=self.delete, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonDel=Button(self.Frameleft,text='Delete', command=self.delete, bg='#6E7B8B', fg='white', font=('tahoma',10,'bold'))
         self.buttonDel.place(x=180,y=300, width=60, height=60)
-        self.buttonRead=Button(self.Frameleft,text='Show', command=self.read, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonRead=Button(self.Frameleft,text='Show', command=self.read, bg='#6E7B8B', fg='white', font=('tahoma',10,'bold'))
         self.buttonRead.place(x=260,y=300, width=60, height=60)
-        self.buttonReset=Button(self.Frameleft,text='Reset', command=self.reset, fg='#4F4F4F', font=('tahoma',10,'bold'))
+        self.buttonReset=Button(self.Frameleft,text='Reset', command=self.reset, bg='#6E7B8B', fg='white', font=('tahoma',10,'bold'))
         self.buttonReset.place(x=340,y=300, width=60, height=60)
     
 
         ####################################### RIGHT ####################################################
-        self.Frameright = Frame(self.master, width=800)
+        self.Frameright = Frame(self.master, width=800, bg='#CAE1FF')
         self.Frameright.pack(side=LEFT, fill=BOTH)
         ##################################################################################################
-        self.Framerighttop = Frame(self.Frameright, height=50, pady=5, padx=5)
+        self.Framerighttop = Frame(self.Frameright, height=50, bg='#CAE1FF', pady=5, padx=5)
          
-        self.studentsearch = Entry(self.Framerighttop, fg='#4F4F4F', font=('tahoma',12,'bold'), width=130)
+        self.studentsearch = Entry(self.Framerighttop, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), width=130)
         self.studentsearch.grid(row = 0, column = 0, sticky='nsew', pady=10, padx=10)
-        self.buttonsearch = Button(self.Framerighttop, text='Search', command=self.search, fg='#4F4F4F', font=('tahoma',12,'bold'), width=10)
+        self.buttonsearch = Button(self.Framerighttop, text='Search', command=self.search, fg='white', bg='#6E7B8B', font=('tahoma',12,'bold'), width=10)
         self.buttonsearch.grid(row = 0, column = 1, sticky='nsew', pady=10, padx=10)
            
         self.Framerighttop.grid_columnconfigure(0, weight=1)
@@ -248,10 +281,15 @@ class StudentWindow :
         req = (" select * from student where ID="+self.studentsearch.get())
         mycursor.execute(req)
         result = mycursor.fetchone()
-        self.table.delete(*self.table.get_children())
-        
-        self.table.insert('','end', iid=result[0], values=result)
-        mydb.commit()
-        mydb.close() 
-        
+        if (result == None) :
+           mb.showerror('Error','The employe not exist', parent=self.master) 
+           print(result)  
+                
+        else  :
+          
+          print(result)
+          self.table.delete(*self.table.get_children()) 
+          self.table.insert('','end', iid=result[0], values=result)
+          mydb.commit()
+          mydb.close() 
           
