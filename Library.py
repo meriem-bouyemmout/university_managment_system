@@ -70,10 +70,10 @@ class LibraryWindow :
         self.NameBoook = Entry(self.Frameleft, text='Name book', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.namebk)
         self.NameBoook.config(justify="center")
         self.NameBoook.place(x=120,y=170, width=200, height=40)
-        self.DelDate = DateEntry(self.Frameleft, text='Delivry date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, textvariable = self.deldt)
+        self.DelDate = DateEntry(self.Frameleft, text='Delivry date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, state = 'readonly', textvariable = self.deldt)
         self.DelDate.config(justify="center")
         self.DelDate.place(x=120,y=220, width=200, height=40)
-        self.RetDate = DateEntry(self.Frameleft, text='Return date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, textvariable = self.retdt)
+        self.RetDate = DateEntry(self.Frameleft, text='Return date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, state = 'readonly', textvariable = self.retdt)
         self.RetDate.config(justify="center")
         self.RetDate.place(x=120,y=270, width=200, height=40)
 
@@ -169,15 +169,15 @@ class LibraryWindow :
         )
         mycursor = mydb.cursor()
         req = " insert into library(Fistname, Lastname, Phone, Name_book, Delivry_date, Return_date) values (%s, %s, %s, %s, %s, %s) "
-        if (self.FirstName.get() == '' or self.LastName.get() == '' or self.Matricule.get() == '' or self.job.get() == '' or self.Email.get() == '' or self.Phone.get() == '') :
+        if (self.FirstName.get() == '' or self.LastName.get() == '' or self.Phone.get() == '' or self.NameBoook.get() == '' or self.DelDate.get() == '' or self.RetDate.get() == '') :
           mb.showerror('Error','Complete all the blanks', parent=self.master)
           
         else :
-            if ( not self.FirstName.get().isalpha()  or not self.LastName.get().isalpha() or not self.Matricule.get().isdigit() or not self.Email.get().isalpha() or not self.Phone.get().isdigit() ) :
+            if ( not self.FirstName.get().isalpha()  or not self.LastName.get().isalpha() or not self.Phone.get().isdigit() or not self.NameBoook.get().isalpha() ) :
               mb.showerror('Error','Give us the true information', parent=self.master) 
 
             else :  
-              val = (self.FirstName.get(), self.LastName.get(), self.Matricule.get(), self.job.get(), self.Email.get(), self.Phone.get())          
+              val = (self.FirstName.get(), self.LastName.get(), self.Phone.get(), self.NameBoook.get(), self.DelDate.get(), self.RetDate.get())          
               mycursor.execute(req, val)        
               mydb.commit()
               mydb.close() 
@@ -195,7 +195,7 @@ class LibraryWindow :
           charset= 'utf8mb4'
         )
         mycursor = mydb.cursor()
-        req = " select * from staff "
+        req = " select * from library "
         mycursor.execute(req)
         result = mycursor.fetchall()
         self.table.delete(*self.table.get_children())
@@ -222,9 +222,9 @@ class LibraryWindow :
         self.FirstName.delete(0,'end')
         self.LastName.delete(0,'end')
         self.Phone.delete(0,'end')
-        self.NameBoook.current(0)
-        self.DelDate.delete(0,'end')
-        self.RetDate.delete(0,'end')   
+        self.NameBoook.delete(0,'end')
+        self.DelDate.current(0)
+        self.RetDate.current(0)   
        
     def delete(self):
         mydb = mc.connect(
@@ -235,7 +235,7 @@ class LibraryWindow :
           charset= 'utf8mb4'
         )
         mycursor = mydb.cursor()
-        req = ("delete from staff where ID="+self.data)
+        req = ("delete from library where ID="+self.data)
         mycursor.execute(req)
         mydb.commit()
         mydb.close()
@@ -253,21 +253,21 @@ class LibraryWindow :
         )
         mycursor = mydb.cursor()
 
-        if (self.first.get() == '' or self.last.get() == '' or self.matr.get() == '' or self.job.get() == '' or self.mail.get() == '' or self.ph.get() == '') :
+        if (self.first.get() == '' or self.last.get() == '' or self.ph.get() == '' or self.namebk.get() == '' or self.deldt.get() == '' or self.retdt.get() == '') :
           mb.showerror('Error','Complete all the blanks', parent=self.master)
           
         else :
-            if ( not self.first.get().isalpha()  or not self.last.get().isalpha() or not self.matr.get().isdigit() or not self.mail.get().isalpha() or not self.ph.get().isdigit() ) :
+            if ( not self.first.get().isalpha()  or not self.last.get().isalpha() or not self.ph.get().isdigit() or not self.namebk.get().isalpha() ) :
               mb.showerror('Error','Give us the true information', parent=self.master)         
          
             else:
 
-              req = ("update staff set Fistname=%s, Lastname=%s, Matricule=%s, Job=%s, Email=%s, Phone=%s where ID=%s ")
-              val = (self.first.get(), self.last.get(), self.matr.get(), self.jb.get(), self.mail.get(), self.ph.get(), self.data)
+              req = ("update library set Fistname=%s, Lastname=%s, Phone=%s, Name_book=%s, Delivry-date=%s, Return_date=%s where ID=%s ")
+              val = (self.first.get(), self.last.get(), self.ph.get(), self.namebk.get(), self.deldt.get(), self.retdt.get(), self.data)
               mycursor.execute(req, val)
               mydb.commit()
               mydb.close()
-              mb.showinfo('Update', 'The employé was updated', parent=self.master)
+              mb.showinfo('Update', 'The line was updated', parent=self.master)
               self.read()
               self.reset() 
            
@@ -280,7 +280,7 @@ class LibraryWindow :
           charset= 'utf8mb4'
         )
         mycursor = mydb.cursor()
-        req = (" select * from staff where ID="+self.studentsearch.get())
+        req = (" select * from library where ID="+self.studentsearch.get())
         mycursor.execute(req)
         result = mycursor.fetchone()
 
