@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 27 oct. 2023 à 03:03
+-- Généré le : sam. 28 oct. 2023 à 03:31
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -20,6 +20,30 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `university`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `exam`
+--
+
+CREATE TABLE `exam` (
+  `ID` int(11) NOT NULL,
+  `Groupe` varchar(20) NOT NULL,
+  `Classroom` varchar(20) NOT NULL,
+  `Proffesseur` varchar(30) NOT NULL,
+  `Date` varchar(10) NOT NULL,
+  `Time` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `exam`
+--
+
+INSERT INTO `exam` (`ID`, `Groupe`, `Classroom`, `Proffesseur`, `Date`, `Time`) VALUES
+(1, 'B', 'Matiban', 'taiboni', '05/12/2023', '10:30 AM'),
+(2, 'A', 'Matiban', 'Taiboni', '27/12/2023', '12:00 PM'),
+(3, 'C', 'Hegiene', 'Abbas', '14/12/2023', '9:00 AM');
 
 -- --------------------------------------------------------
 
@@ -42,7 +66,9 @@ CREATE TABLE `library` (
 --
 
 INSERT INTO `library` (`ID`, `Fistname`, `Lastname`, `Phone`, `Name_book`, `Delivry_date`, `Return_date`) VALUES
-(3, 'ghK', 'J', 451, 'LH', '10/27/23', '10/27/23');
+(5, 'kuyg', 'oiuh', 674, 'kiuhg', '27/10/2023', '27/11/2023'),
+(6, 'bouyemmout', 'meriem', 556091636, 'Python', '27/10/2023', '27/11/2023'),
+(7, 'rth', 'trh', 87, 'lkjdfdlsjkh', '27/10/2023', '27/11/2023');
 
 -- --------------------------------------------------------
 
@@ -105,6 +131,12 @@ INSERT INTO `student` (`ID`, `Fistname`, `Lastname`, `Matricule`, `Email`, `Phon
 --
 
 --
+-- Index pour la table `exam`
+--
+ALTER TABLE `exam`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Index pour la table `library`
 --
 ALTER TABLE `library`
@@ -127,10 +159,16 @@ ALTER TABLE `student`
 --
 
 --
+-- AUTO_INCREMENT pour la table `exam`
+--
+ALTER TABLE `exam`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT pour la table `library`
 --
 ALTER TABLE `library`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `staff`

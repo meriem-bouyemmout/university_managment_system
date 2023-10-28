@@ -27,7 +27,7 @@ class Staff:
 class StaffWindow :
     def __init__(self):
         self.master = Toplevel()
-        self.master.title('Staff Managment System')
+        self.master.title('Staff Management System')
         self.width = self.master.winfo_screenwidth()
         self.height = self.master.winfo_screenheight()
         self.master.geometry("{w}x{h}+0+0".format(w=self.width,h=self.height))

@@ -26,7 +26,7 @@ class Library:
 class LibraryWindow :
     def __init__(self):
         self.master = Toplevel()
-        self.master.title('Library Managment System')
+        self.master.title('Library Management System')
         self.width = self.master.winfo_screenwidth()
         self.height = self.master.winfo_screenheight()
         self.master.geometry("{w}x{h}+0+0".format(w=self.width,h=self.height))
@@ -70,10 +70,10 @@ class LibraryWindow :
         self.NameBoook = Entry(self.Frameleft, text='Name book', fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), textvariable = self.namebk)
         self.NameBoook.config(justify="center")
         self.NameBoook.place(x=120,y=170, width=200, height=40)
-        self.DelDate = DateEntry(self.Frameleft, text='Delivry date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, state = 'readonly', textvariable = self.deldt)
+        self.DelDate = DateEntry(self.Frameleft, text='Delivry date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, state = 'readonly', date_pattern='dd/mm/yyyy', textvariable = self.deldt)
         self.DelDate.config(justify="center")
         self.DelDate.place(x=120,y=220, width=200, height=40)
-        self.RetDate = DateEntry(self.Frameleft, text='Return date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, state = 'readonly', textvariable = self.retdt)
+        self.RetDate = DateEntry(self.Frameleft, text='Return date', width=12, fg='#4F4F4F', bg='white', font=('tahoma',12,'bold'), background='#6E7B8B', foreground='white', borderwidth=2, state = 'readonly', date_pattern='dd/mm/yyyy', textvariable = self.retdt)
         self.RetDate.config(justify="center")
         self.RetDate.place(x=120,y=270, width=200, height=40)
 
@@ -223,8 +223,9 @@ class LibraryWindow :
         self.LastName.delete(0,'end')
         self.Phone.delete(0,'end')
         self.NameBoook.delete(0,'end')
-        self.DelDate.current(0)
-        self.RetDate.current(0)   
+        self.DelDate.selection_clear()
+        self.RetDate.selection_clear()
+          
        
     def delete(self):
         mydb = mc.connect(
@@ -262,7 +263,7 @@ class LibraryWindow :
          
             else:
 
-              req = ("update library set Fistname=%s, Lastname=%s, Phone=%s, Name_book=%s, Delivry-date=%s, Return_date=%s where ID=%s ")
+              req = ("update library set Fistname=%s, Lastname=%s, Phone=%s, Name_book=%s, Delivry_date=%s, Return_date=%s where ID=%s ")
               val = (self.first.get(), self.last.get(), self.ph.get(), self.namebk.get(), self.deldt.get(), self.retdt.get(), self.data)
               mycursor.execute(req, val)
               mydb.commit()
