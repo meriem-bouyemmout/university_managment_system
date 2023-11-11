@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : sam. 28 oct. 2023 à 03:31
+-- Généré le : dim. 12 nov. 2023 à 00:47
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -73,6 +73,27 @@ INSERT INTO `library` (`ID`, `Fistname`, `Lastname`, `Phone`, `Name_book`, `Deli
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `loginadmin`
+--
+
+CREATE TABLE `loginadmin` (
+  `ID` int(11) NOT NULL,
+  `Username` varchar(20) NOT NULL,
+  `Password` varchar(20) NOT NULL,
+  `Name` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Déchargement des données de la table `loginadmin`
+--
+
+INSERT INTO `loginadmin` (`ID`, `Username`, `Password`, `Name`) VALUES
+(1, 'meriem', '1234', 'Meriem'),
+(2, 'hadjer', '5678', 'Hadjer');
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `staff`
 --
 
@@ -123,7 +144,6 @@ INSERT INTO `student` (`ID`, `Fistname`, `Lastname`, `Matricule`, `Email`, `Phon
 (13, 'o', 'o', '9582', 'o', 5),
 (14, 'm', 'm', '7', 'm', 7),
 (15, 'h', 'h', '87', 'h', 87),
-(16, 'a', 'a', '7', 'a', 52),
 (25, 'kjhg', 'kjhg', '54', 'kgh', 354);
 
 --
@@ -140,6 +160,12 @@ ALTER TABLE `exam`
 -- Index pour la table `library`
 --
 ALTER TABLE `library`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Index pour la table `loginadmin`
+--
+ALTER TABLE `loginadmin`
   ADD PRIMARY KEY (`ID`);
 
 --
@@ -169,6 +195,12 @@ ALTER TABLE `exam`
 --
 ALTER TABLE `library`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `loginadmin`
+--
+ALTER TABLE `loginadmin`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `staff`

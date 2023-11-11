@@ -27,6 +27,7 @@ class ExamWindow :
 
     def __init__(self):
         self.master = Toplevel()
+        self.master.iconbitmap('C:\\Users\\pc\\Student système managment\\images\\swim_ring_icon_183313.ico')
         self.master.title('Student Management System')
         self.width = self.master.winfo_screenwidth()
         self.height = self.master.winfo_screenheight()

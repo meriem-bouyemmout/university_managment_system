@@ -26,6 +26,7 @@ class Library:
 class LibraryWindow :
     def __init__(self):
         self.master = Toplevel()
+        self.master.iconbitmap('C:\\Users\\pc\\Student système managment\\images\\swim_ring_icon_183313.ico')
         self.master.title('Library Management System')
         self.width = self.master.winfo_screenwidth()
         self.height = self.master.winfo_screenheight()

@@ -23,6 +23,7 @@ class Student:
 class StudentWindow :
       def __init__(self):
         self.master = Toplevel()
+        self.master.iconbitmap('C:\\Users\\pc\\Student système managment\\images\\swim_ring_icon_183313.ico')
         self.master.title('Student Management System')
         self.width = self.master.winfo_screenwidth()
         self.height = self.master.winfo_screenheight()
@@ -155,13 +156,16 @@ class StudentWindow :
       
       
       def add(self):
-        mydb = mc.connect(
-          host = 'localhost',
-          user = 'root',
-          password = '',
-          database = 'university',
-          charset= 'utf8mb4'
-        )
+        try:
+          mydb = mc.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '',
+            database = 'university',
+            charset= 'utf8mb4'
+          )
+        except:
+            mb.showerror("Failed connection","please opner your xampp server")  
         mycursor = mydb.cursor()
         req = " insert into student(Fistname, Lastname, Matricule, Email, Phone) values (%s, %s, %s, %s, %s) "
         if (self.FirstName.get() == '' or self.LastName.get() == '' or self.Matricule.get() == '' or self.Email.get() == '' or self.Phone.get() == '') :
@@ -186,14 +190,17 @@ class StudentWindow :
               self.Phone.delete(0,'end') 
 
 
-      def read(self):  
-        mydb = mc.connect(
-          host = 'localhost',
-          user = 'root',
-          password = '',
-          database = 'university',
-          charset= 'utf8mb4'
-        )
+      def read(self):
+        try:  
+          mydb = mc.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '',
+            database = 'university',
+            charset= 'utf8mb4'
+          )
+        except:
+            mb.showerror("Failed connection","please opner your xampp server")  
         mycursor = mydb.cursor()
         req = " select * from student "
         mycursor.execute(req)
@@ -225,13 +232,16 @@ class StudentWindow :
         self.Phone.delete(0,'end')   
        
       def delete(self):
-        mydb = mc.connect(
-          host = 'localhost',
-          user = 'root',
-          password = '',
-          database = 'university',
-          charset= 'utf8mb4'
-        )
+        try:
+          mydb = mc.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '',
+            database = 'university',
+            charset= 'utf8mb4'
+          )
+        except:
+            mb.showerror("Failed connection","please opner your xampp server")  
         mycursor = mydb.cursor()
         req = ("delete from student where ID="+self.data)
         mycursor.execute(req)
@@ -242,13 +252,16 @@ class StudentWindow :
         self.reset()
 
       def update(self):
-        mydb = mc.connect(
-          host = 'localhost',
-          user = 'root',
-          password = '',
-          database = 'university',
-          charset= 'utf8mb4'
-        )
+        try:
+          mydb = mc.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '',
+            database = 'university',
+            charset= 'utf8mb4'
+          )
+        except:
+            mb.showerror("Failed connection","please opner your xampp server")  
         mycursor = mydb.cursor()
 
         if (self.first.get() == '' or self.last.get() == '' or self.matr.get() == '' or self.mail.get() == '' or self.ph.get() == '') :
@@ -270,13 +283,16 @@ class StudentWindow :
               self.reset() 
            
       def search(self):
-        mydb = mc.connect(
-          host = 'localhost',
-          user = 'root',
-          password = '',
-          database = 'university',
-          charset= 'utf8mb4'
-        )
+        try:           
+          mydb = mc.connect(
+            host = 'localhost',
+            user = 'root',
+            password = '',
+            database = 'university',
+            charset= 'utf8mb4'
+          )
+        except:
+            mb.showerror("Failed connection","please opner your xampp server")  
         mycursor = mydb.cursor()
         req = (" select * from student where ID="+self.studentsearch.get())
         mycursor.execute(req)
