@@ -8,6 +8,7 @@ import Student as st
 import Staff as sf
 import Library as lib
 import Exam as ex
+import inter_admin as ind
 
 
 
@@ -56,6 +57,29 @@ class University:
     def Logout(self):
         self.master.destroy()
 
+class admin :
+    def __init__(self,mast):
+        self.master = mast
+        self.master.title("Admin")
+        self.width = self.master.winfo_screenwidth()
+        self.height = self.master.winfo_screenheight()
+        self.master.geometry("{w}x{h}+0+0".format(w=self.width,h=self.height))
+        self.master.state("zoomed")
+        ################################################################################        
+        self.frametop = Frame(self.master,bg='#1b9ea4',height=200)
+        self.frametop.pack(fill=X)
+        self.sms = Label(self.frametop,text="Welcome Admin",bg='#1b9ea4',fg='white',font=('tahoma',40),pady=45)
+        self.sms.pack()
+        self.buttonLogout = Button(self.frametop, text='Logout', command=self.Logout)
+        self.buttonLogout.pack()
+        ##################################################################################
+        intdm = ind.inter_admin(self.master)
+        
+
+
+    def Logout(self):
+        self.master.destroy()    
+
 
 class Login :
     def __init__(self,mast):
@@ -103,16 +127,27 @@ class Login :
         req = " select * from LoginAdmin where username = '"+self.username.get()+"' and password = '"+self.password.get()+"' "
         mycursor.execute(req)
         result = mycursor.fetchone()
-        if (result == None) :
-            mb.showerror('Erreur','Invalaid username and password')  
-            self.username.delete(0,'end')
-            self.password.delete(0,'end')
-        else :         
-            win = Toplevel()
-            win.iconbitmap('C:\\Users\\pc\\Student système managment\\images\\swim_ring_icon_183313.ico')
-            uni = University(win)
-            self.username.delete(0,'end')
-            self.password.delete(0,'end')   
+        if(self.username.get() == 'admin' and self.password.get() == '000' ) :
+                win = Toplevel()
+                win.iconbitmap('C:\\Users\\pc\\Student système managment\\images\\swim_ring_icon_183313.ico')
+                uni = admin(win)
+                self.username.delete(0,'end')
+                self.password.delete(0,'end')   
+        
+        else:
+            if (result == None) :
+                mb.showerror('Erreur','Invalaid username and password')  
+                self.username.delete(0,'end')
+                self.password.delete(0,'end')
+            
+          
+
+            else :         
+                win = Toplevel()
+                win.iconbitmap('C:\\Users\\pc\\Student système managment\\images\\swim_ring_icon_183313.ico')
+                uni = University(win)
+                self.username.delete(0,'end')
+                self.password.delete(0,'end')   
         
         mydb.commit()
 
