@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 12 nov. 2023 à 00:47
+-- Généré le : dim. 19 nov. 2023 à 19:12
 -- Version du serveur : 10.4.28-MariaDB
 -- Version de PHP : 8.2.4
 
@@ -88,8 +88,11 @@ CREATE TABLE `loginadmin` (
 --
 
 INSERT INTO `loginadmin` (`ID`, `Username`, `Password`, `Name`) VALUES
-(1, 'meriem', '1234', 'Meriem'),
-(2, 'hadjer', '5678', 'Hadjer');
+(1, 'meriem', '1234', 'Meriem Bouyemmout'),
+(3, 'hadjer', '5678', 'Hadjer Bouyemmout'),
+(4, 'ayoub', '9123', 'Ayoub Bouyemmout'),
+(5, 'morad', '4567', 'Morad Awdiya'),
+(6, 'farida', '123', 'Farida Lamara');
 
 -- --------------------------------------------------------
 
@@ -141,10 +144,8 @@ INSERT INTO `student` (`ID`, `Fistname`, `Lastname`, `Matricule`, `Email`, `Phon
 (2, 'Bouyemmout', 'Hadjer', '2020310654', 'hadjerbt7@gmail.com', 563214789),
 (3, 'rhreg', 'rthdrt', '53232', 'eufh', 321420),
 (4, 'aaa', 'o', '9582', 'o', 5),
-(13, 'o', 'o', '9582', 'o', 5),
-(14, 'm', 'm', '7', 'm', 7),
-(15, 'h', 'h', '87', 'h', 87),
-(25, 'kjhg', 'kjhg', '54', 'kgh', 354);
+(13, 'o', 'o', '55', 'o', 5),
+(14, 'm', 'm', '7', 'm', 7);
 
 --
 -- Index pour les tables déchargées
@@ -200,7 +201,7 @@ ALTER TABLE `library`
 -- AUTO_INCREMENT pour la table `loginadmin`
 --
 ALTER TABLE `loginadmin`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `staff`
@@ -212,7 +213,7 @@ ALTER TABLE `staff`
 -- AUTO_INCREMENT pour la table `student`
 --
 ALTER TABLE `student`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
